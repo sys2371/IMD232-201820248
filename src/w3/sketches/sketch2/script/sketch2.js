@@ -27,8 +27,4 @@ function draw() {
   if (pos.x - radius < 0 || pos.x + radius > width) {
     vel.x *= -1;
   }
-  if (pos.y - radius < 0 || pos.y + radius > height) {
-    vel.y *= -1;
-  }
-  ellipse(pos.x, pos.y, 2 * radius);
 }
