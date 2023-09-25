@@ -1,27 +1,31 @@
 let pos;
 let vel;
 let acc;
+let mv;
+let cv;
+let cvTomv;
 
 function setup() {
-  setCanvasContainer('canvas', 1, 1, true);
+  setCanvasContainer('canvas', 3, 2, true);
   background('white');
   pos = createVector(random(width), random(height));
   vel = createVector(0, 0);
-  acc = createVector();
+  acc = p5.Vector.random2D();
+  mv = createVector();
+  cvTomv = createVector();
+  cv = createVector(width / 2, height / 2);
 }
 
 function draw() {
   background('white');
-
-  let posMv = createVector(mouseX, mouseY).sub(pos);
-
-  posMv.setMag(0.1);
-
-  acc = posMv;
-
+  acc = p5.Vector.random2D();
+  acc.mult(0.1);
   vel.add(acc);
   vel.limit(10);
   pos.add(vel);
+
+  mv.x = mouseX;
+  mv.y = mouseY;
 
   if (pos.x < 0) {
     pos.x = width;
@@ -40,7 +44,8 @@ function draw() {
 
   strokeWeight(2);
   stroke('black');
-  line(pos.x, pos.y, mouseX, mouseY);
+  let cvTomv = p5.Vector.sub(createVector(mv.x, mv.y), cv);
+  line(pos.x, pos.y, cv.x + cvTomv.x, cv.y + cvTomv.y);
 
   stroke('crimson');
   line(pos.x, pos.y, pos.x + 10 * vel.x, pos.y + 10 * vel.y);
