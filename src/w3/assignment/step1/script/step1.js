@@ -1,47 +1,50 @@
-let cv;
-let mv;
 let pos;
 let vel;
-let x;
-let y;
+let acc;
 
 function setup() {
-  setCanvasContainer('canvas', 3, 2, true);
+  setCanvasContainer('canvas', 1, 1, true);
   background('white');
-  cv = createVector(width / 2, height / 2);
-  mv = createVector();
   pos = createVector(random(width), random(height));
-  vel = p5.Vector.random2D();
-  vel.mult(5);
+  vel = createVector(0, 0);
+  acc = createVector();
 }
 
 function draw() {
   background('white');
-  mv.set(mouseX, mouseY);
-  stroke('black');
-  line(pos.x, pos.y, mv.x, mv.y);
-  ellipse(pos.x, pos.y, 50);
 
-  update();
-  checkEdges();
-  display();
-}
+  let posMv = createVector(mouseX, mouseY).sub(pos);
 
-function update() {
+  posMv.setMag(0.1);
+
+  acc = posMv;
+
+  vel.add(acc);
+  vel.limit(10);
   pos.add(vel);
-}
 
-function checkEdges() {
-  if (x < 0 || x > width) {
-    velocityX *= -1;
+  if (pos.x < 0) {
+    pos.x = width;
+  } else if (pos.x > width) {
+    pos.x = 0;
   }
-  if (y < 0 || y > height) {
-    velocityY *= -1;
+  if (pos.y < 0) {
+    pos.y = height;
+  } else if (pos.y > height) {
+    pos.y = 0;
   }
-}
 
-function display() {
   noStroke();
-  fill('cornsilk');
+  fill('black');
   ellipse(pos.x, pos.y, 50);
+
+  strokeWeight(2);
+  stroke('black');
+  line(pos.x, pos.y, mouseX, mouseY);
+
+  stroke('crimson');
+  line(pos.x, pos.y, pos.x + 10 * vel.x, pos.y + 10 * vel.y);
+
+  stroke('cornflowerblue');
+  line(pos.x, pos.y, pos.x + 100 * acc.x, pos.y + 100 * acc.y);
 }
