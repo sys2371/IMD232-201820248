@@ -10,7 +10,7 @@ function setup() {
 
   //   angle = createVector(0, 0);
   angle = createVector(0, TAU / 4);
-  angleVel = createVector(periodToAngleVel(180), periodToAngleVel(120));
+  angleVel = createVector(periodToAngleVel(240), periodToAngleVel(360));
 
   background(255);
 }

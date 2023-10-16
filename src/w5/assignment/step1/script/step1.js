@@ -8,15 +8,11 @@ const stripeGap = 20;
 function setup() {
   setCanvasContainer('canvas', 1, 1, true);
 
-  pend = new Pendulum(width / 3, 0, height / 3, (TAU / 120) * 5, 10);
-
+  pend = new Pendulum(width / 3, 10, height / 3, (TAU / 360) * 30, 50);
   background(255);
 }
 function draw() {
-  pend.update();
   background(255);
-  pend.display();
-
   for (let a = 0; a < stripeNum; a++) {
     for (let b = 0; b < stripeNum2; b++) {
       //   stroke((16 / stripeNum) * a, (255 / stripeNum2) * b, 255);

@@ -11,13 +11,5 @@ class Pendulum {
     this.movingOffset = createVector();
   }
 
-  update() {}
-
-  display() {
-    noStroke();
-    fill(0);
-    ellipse(this.ballPos.x, this.ballPos.y, 2 * this.ballRad);
-    stroke(0);
-    noFill();
-  }
+  display() {}
 }
