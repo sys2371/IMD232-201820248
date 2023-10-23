@@ -29,7 +29,3 @@ function draw() {
 
   console.log(emitter.particles.length);
 }
-
-function mousePressed() {
-  emitters.push(new Emitter(mouseX, mouseY));
-}
