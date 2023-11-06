@@ -1,24 +1,55 @@
-let Pend;
-
-const stripeNum = 8;
-const stripeNum2 = 8;
-const stripeBegin = 15;
-const stripeGap = 20;
+const cNum = 8;
+const rNum = 8;
+let gridC;
+let gridR;
+let angleBegin = 0;
+let angleBeginVel;
+let angleStep;
 
 function setup() {
   setCanvasContainer('canvas', 1, 1, true);
 
-  pend = new Pendulum(width / 3, 10, height / 3, (TAU / 360) * 30, 50);
-  background(255);
+  colorMode(HSL, 360, 100, 100, 100);
+  angleBeginVel = (TAU / 360) * 1;
+  angleStep = (TAU / 360) * 15;
+  background(360, 0, 100);
 }
+
 function draw() {
-  background(255);
-  for (let a = 0; a < stripeNum; a++) {
-    for (let b = 0; b < stripeNum2; b++) {
-      //   stroke((16 / stripeNum) * a, (255 / stripeNum2) * b, 255);
-      let x = ((a + 0.9) * width) / (stripeNum + 0.9);
-      let y = ((b + 0.9) * height) / (stripeNum2 + 0.9);
-      ellipse(x, y, 60);
+  background(360, 0, 100);
+
+  for (let r = 0; r < rNum; r++) {
+    for (let c = 0; c < cNum; c++) {
+      const tileW = width / (3 * cNum + 1);
+      const tileH = height / (3 * rNum + 1);
+      const x = tileW * (3 * c + 2);
+      const y = tileH * (3 * r + 2);
+      const angle = angleBegin + angleStep * (cNum * r + c);
+
+      push();
+      translate(x, y);
+      rotate(angle);
+      if (c % 2 == 0) {
+        if (r % 2 == 0) {
+          stroke(0, 100, 50);
+        } else {
+          stroke(90, 100, 50);
+        }
+      } else {
+        if (r % 2 == 0) {
+          stroke(180, 100, 50);
+        } else {
+          stroke(270, 100, 50);
+        }
+      }
+      ellipse(0, 0, 2 * tileW, 2 * tileH);
+      line(0, 0, tileW, 0);
+      fill(0);
+      noStroke();
+      ellipse(tileW, 0, 20);
+      pop();
     }
   }
+
+  angleBegin += angleBeginVel;
 }
